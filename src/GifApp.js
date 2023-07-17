@@ -1,34 +1,20 @@
-import React, { useState } from 'react';
-import { AddCategory } from './components/AddCategory';
-import { GifGrid } from './components/GifGrid';
+import React, { useState } from "react";
+import { AddCategory } from "./components/AddCategory";
+import { GifGrid } from "./components/GifGrid";
 
 const GifApp = () => {
-
-    //const categories = ['One Punche', 'Samurai X', 'Dragon Ball'];
-    const [categories, setCategories] = useState(['One Punch']);
-
-    // const handleAdd = () => {
-    //    setCategories([...categories, 'HunterXHunter'])
-    //     // setCategories(['HunterXHunter',  ...categories])   // para agregar "hunterXHUnter" al principio del arreglo
-
-
-    //     //setCategories( catrgogorieess => [...catrgogorieess, 'HunterXHunter'])  // otra forma de hacerlo con un callback
-    // }
-    return(
-
-        <>
-            <h2> Gif App </h2>
-            <AddCategory setCategories = { setCategories } />
-            <hr />
-
-            <ol>
-                { 
-                    categories.map(category => (
-                        <GifGrid key = { category } category = { category } />
-                    ))
-                }
-            </ol>
-        </>
-    )
-}
+  const [categories, setCategories] = useState(["Mario Bros"]);
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-4xl font-bold mb-4 text-center">Gif App</h2>
+      <AddCategory setCategories={setCategories} />
+      <hr className="my-4 border-t-2 border-gray-300" />
+      <div className="grid gap-4">
+        {categories.map((category) => (
+          <GifGrid key={category} category={category} />
+        ))}
+      </div>
+    </div>
+  );
+};
 export default GifApp;

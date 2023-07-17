@@ -1,34 +1,22 @@
-import React from 'react'
-import { useFetchGifs } from '../hooks/useFetchGifs'
-import { GiffGridItem } from './GiffGridItem';
+import React from "react";
+import { useFetchGifs } from "../hooks/useFetchGifs";
+import { GifGridItem } from "./GifGridItem";
 
 export const GifGrid = ({ category }) => {
+  const { data: images, loading } = useFetchGifs(category);
 
-
-    const { data: images, loading } = useFetchGifs(category);  // aca el data:images es solo para cambiarle el nombre, no hace nada mas
-
-    return (
-        <>
-            <h3 className= 'animate__animated animate__fadeInLeftBig'> { category } </h3>
-
-            {/* { loading ? 'Cargando...' : 'Data Cargada'} */}
-
-            {/* { loading ? <p> LOADING... </p> : null }  */}
-            
-            { loading && <p className= 'animate__animated animate__flash'> LOADING... </p> }
-
-
-            <div className= 'card-grid'>
-            
-                    {
-                        images.map( ( img) => (    // para usarlo aca y que se entienda
-
-                            <GiffGridItem key = {img.id} {...img} />
-                        ))
-                    }
-            
-            </div> 
-        </>
-    )
-}
-    
+  return (
+    <div className="p-4">
+      <h3 className="text-2xl font-bold mb-2 p-5">{category}</h3>
+      {loading ? (
+        <p className="text-gray-500">LOADING...</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {images.map((img) => (
+            <GifGridItem key={img.id} {...img} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

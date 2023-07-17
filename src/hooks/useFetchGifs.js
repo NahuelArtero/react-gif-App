@@ -1,34 +1,31 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { getFetchGifs } from "../helpers/getFetchGifs";
 
+export const useFetchGifs = (category) => {
+  const [state, setState] = useState({
+    data: [],
+    isLoading: true,
+  });
 
-export const useFetchGifs = ( category ) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const img = await getFetchGifs(category);
+        setState({
+          data: img,
+          isLoading: false,
+        });
+      } catch (error) {
+        console.error("Error : ", error);
+        setState({
+          data: [],
+          isLoading: false,
+        });
+      }
+    };
 
-    const [state, setstate] = useState({
+    fetchData();
+  }, [category]);
 
-        data:[],
-        loading: true
-    });
-
-    useEffect( () => {
-
-        getFetchGifs(category)
-            .then ( img => {
-                    // setTimeout( () => {
-
-                        setstate({
-                            data:img,
-                            loading: false
-                        });
-                    // }, 3000)
-                    
-            })
-
-
-
-    }, [ category ]) 
-
-
-    return state; // se inicializa asi      { data:[], loading: true };
-
-}
+  return state;
+};
